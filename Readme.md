@@ -26,3 +26,5 @@ The app will start running at <http://localhost:9010>.
 The app defines CRUD APIs. Check out the controller file for what is available.
 
 You can test them using postman or any other rest client.
+
+Swagger UI also available at <http://localhost:9010/swagger-ui.html>
