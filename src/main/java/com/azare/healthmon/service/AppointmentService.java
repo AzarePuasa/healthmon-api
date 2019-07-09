@@ -39,6 +39,7 @@ public class AppointmentService {
 		Appointment appointment = apptRepository.findById(apptId)
 				.orElseThrow(() -> new ResourceNotFoundException("Appointment", "id", apptId));
 
+		appointment.setDatetime(apptDetails.getDatetime());
 		appointment.setLocation(apptDetails.getLocation());
 		appointment.setPurpose(apptDetails.getPurpose());
 
