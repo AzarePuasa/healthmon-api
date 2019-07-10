@@ -32,7 +32,7 @@ public class Weight {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern="yyyy-MM-dd", timezone="Asia/Singapore")
-    private Date datetime;
+    private Date date;
 
     @Column(nullable = true)
     private String weight;
@@ -56,12 +56,12 @@ public class Weight {
     }
     
     // Getter/Setter datetime
-    public void setDatetime(Date datetime) {
-    	this.datetime = datetime;
+    public void setDate(Date date) {
+    	this.date = date;
     }
     
-    public Date getDatetime() {
-    	return this.datetime;
+    public Date getDate() {
+    	return this.date;
     }
 
 	public String getWeight() {
