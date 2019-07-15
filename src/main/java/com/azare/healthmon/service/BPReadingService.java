@@ -2,16 +2,19 @@ package com.azare.healthmon.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import com.azare.healthmon.exception.ResourceNotFoundException;
 import com.azare.healthmon.model.BPReading;
 import com.azare.healthmon.repository.BPReadingRepository;
 
+@Service
 public class BPReadingService {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(BPReadingService.class);
@@ -36,8 +39,8 @@ public class BPReadingService {
 	}
 	
 	//Testing this endpoint. Not sure whether syntax is correct.
-	public List<BPReading> getBPReadingByDate(Date date) {
-		List<BPReading> result = bpReadingRepository.findAllByDate(date);
+	public Optional<BPReading> getBPReadingByDate(Date date) {
+		Optional<BPReading> result = bpReadingRepository.findByDate(date);
 		return result;
 	}
 	
@@ -79,6 +82,13 @@ public class BPReadingService {
 
 		return ResponseEntity.ok().build();
 	}
+	
+//	public Optional<BPReading> getBPReadingByDate1(Date date) {
+//		Optional<BPReading> bpReading = bpReadingRepository.findByDate(date);
+//		
+//		return bpReading;
+//				
+//	}
 	
 	//Experiment on Exist
 	/* eg. from https://www.baeldung.com/spring-data-exists-query
