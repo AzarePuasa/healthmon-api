@@ -27,56 +27,67 @@ import com.azare.healthmon.service.BPReadingService;
 @RestController
 @RequestMapping("/api")
 public class BPReadingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(BPReadingController.class);
-	
+
 	@Autowired
 	BPReadingService bpService;
-	
+
 	/**
 	 * Get all BP Readings
+	 * 
 	 * @return
 	 */
-	@GetMapping("/bpreadings") 
+	@GetMapping("/bpreadings")
 	public List<BPReading> getAllRecord() {
 		return bpService.getAllBPReading();
 	}
-	
-	//Get one BP Reading
-	@GetMapping("/bpreading/{id}") 
+
+	// Get one BP Reading
+	@GetMapping("/bpreading/{id}")
 	public BPReading getBPReadingById(@PathVariable(value = "id") Long id) {
 		return bpService.getBPReadingById(id);
 	}
-	
+
 	@GetMapping("/getreadingbydate")
-	public BPReading getBPReadingByDate(
-			@RequestParam("date") @DateTimeFormat(pattern="yyyy-MM-dd") Date date) {
-		
+	public BPReading getBPReadingByDate(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+
 		Optional<BPReading> bpReading = bpService.getBPReadingByDate(date);
-		
+
 		if (bpReading.isPresent()) {
 			return bpReading.get();
 		}
-		
+
 		return null;
 	}
-	
-	//Create BP Reading
+
+	// Create BP Reading
 	@PostMapping("/bpreading")
 	public BPReading createBPReading(@Valid @RequestBody BPReading bpReading) {
 		return bpService.createBPReading(bpReading);
 	}
-	
-	//Update BP Reading
-	@PutMapping("/bpreading/{id}") 
-	public BPReading update(@PathVariable(value = "id") Long id, BPReading bpReading) {
-		return bpService.update(id, bpReading);
+
+	// Update BP Reading
+	@PutMapping("/bpmorning/{id}")
+	public BPReading updateMorningBP(@PathVariable(value = "id") Long id, @PathVariable(value = "id") String reading) {
+		return bpService.updateBPMorning(id, reading);
 	}
-	
-	//Delete BP Reading
+
+	@PutMapping("/bpafternoon/{id}")
+	public BPReading updateAfternoonBP(@PathVariable(value = "id") Long id,
+			@PathVariable(value = "id") String reading) {
+		return bpService.updateBPAfternoon(id, reading);
+	}
+
+	@PutMapping("/bpevening/{id}")
+	public BPReading updateEveningBP(@PathVariable(value = "id") Long id, @PathVariable(value = "id") String reading) {
+		return bpService.updateBPEvening(id, reading);
+	}
+
+	// Delete BP Reading
 	@DeleteMapping("/bpreading/{id}")
 	public ResponseEntity<?> deleteRecord(@PathVariable(value = "id") Long id) {
 		return bpService.delete(id);
 	}
-	
+
 }

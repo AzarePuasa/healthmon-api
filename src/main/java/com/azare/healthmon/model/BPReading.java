@@ -34,11 +34,14 @@ public class BPReading {
     @JsonFormat(pattern="yyyy-MM-dd", timezone="Asia/Singapore")
     private Date date;
     
-    @Column(nullable = false)
-    private String bpreading; //stored in this format => systolic|diastolic
+    @Column(nullable = true)
+    private String bpmorning; //stored in this format => systolic|diastolic
     
-    @Column(nullable = false)
-    private String type;
+    @Column(nullable = true)
+    private String bpafternoon; //stored in this format => systolic|diastolic
+    
+    @Column(nullable = true)
+    private String bpevening; //stored in this format => systolic|diastolic
     
     @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -66,20 +69,28 @@ public class BPReading {
 		this.date = date;
 	}
 
-	public String getBpreading() {
-		return bpreading;
+	public String getBpmorning() {
+		return bpmorning;
 	}
 
-	public void setBpreading(String bpreading) {
-		this.bpreading = bpreading;
+	public void setBpmorning(String bpmorning) {
+		this.bpmorning = bpmorning;
 	}
 
-	public String getType() {
-		return type;
+	public String getBpafternoon() {
+		return bpafternoon;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setBpafternoon(String bpafternoon) {
+		this.bpafternoon = bpafternoon;
+	}
+
+	public String getBpevening() {
+		return bpevening;
+	}
+
+	public void setBpevening(String bpevening) {
+		this.bpevening = bpevening;
 	}
 
 	public Date getCreatedAt() {
@@ -96,7 +107,5 @@ public class BPReading {
 
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
-	}
-    
-    
+	}  
 }

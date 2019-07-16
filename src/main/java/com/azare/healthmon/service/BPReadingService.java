@@ -55,14 +55,36 @@ public class BPReadingService {
 	}
 	
 	
-	//Put method to update BPReading.
-	public BPReading update(Long bpReadingId, BPReading bpDetails) {
+	public BPReading updateBPMorning(Long bpReadingId, String reading) {
 		BPReading bpReading = bpReadingRepository.findById(bpReadingId)
 				.orElseThrow(
 						() -> new ResourceNotFoundException("BPReading", "id", bpReadingId));
 
-		bpReading.setBpreading(bpDetails.getBpreading());
-		bpReading.setType(bpDetails.getType());
+		bpReading.setBpmorning(reading);
+		
+		BPReading updatedBPReading = bpReadingRepository.save(bpReading);
+		
+		return updatedBPReading;
+	}
+	
+	public BPReading updateBPAfternoon(Long bpReadingId, String reading) {
+		BPReading bpReading = bpReadingRepository.findById(bpReadingId)
+				.orElseThrow(
+						() -> new ResourceNotFoundException("BPReading", "id", bpReadingId));
+
+		bpReading.setBpafternoon(reading);
+		
+		BPReading updatedBPReading = bpReadingRepository.save(bpReading);
+		
+		return updatedBPReading;
+	}
+	
+	public BPReading updateBPEvening(Long bpReadingId, String reading) {
+		BPReading bpReading = bpReadingRepository.findById(bpReadingId)
+				.orElseThrow(
+						() -> new ResourceNotFoundException("BPReading", "id", bpReadingId));
+
+		bpReading.setBpevening(reading);
 		
 		BPReading updatedBPReading = bpReadingRepository.save(bpReading);
 		
