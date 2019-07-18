@@ -49,8 +49,8 @@ public class BPReadingController {
 		return bpService.getBPReadingById(id);
 	}
 
-	@GetMapping("/getreadingbydate")
-	public BPReading getBPReadingByDate(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
+	@GetMapping("/getreadingbydate/{date}")
+	public BPReading getBPReadingByDate(@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
 
 		Optional<BPReading> bpReading = bpService.getBPReadingByDate(date);
 
