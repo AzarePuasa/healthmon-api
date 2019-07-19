@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.azare.healthmon.model.BPReading;
@@ -52,13 +51,20 @@ public class BPReadingController {
 	@GetMapping("/getreadingbydate/{date}")
 	public BPReading getBPReadingByDate(@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date) {
 
+		LOG.info("Getting BP Reading for " + date);
 		Optional<BPReading> bpReading = bpService.getBPReadingByDate(date);
 
 		if (bpReading.isPresent()) {
 			return bpReading.get();
 		}
+		
+		LOG.info("BP Reading not found. Creating new entry.");
+		
+		BPReading bpReadingTemp = new BPReading(); 	
+		
+		bpReadingTemp.setDate(date);
 
-		return null;
+		return bpService.createBPReading(bpReadingTemp);
 	}
 
 	// Create BP Reading
@@ -69,18 +75,18 @@ public class BPReadingController {
 
 	// Update BP Reading
 	@PutMapping("/bpmorning/{id}")
-	public BPReading updateMorningBP(@PathVariable(value = "id") Long id, @PathVariable(value = "id") String reading) {
+	public BPReading updateMorningBP(@PathVariable(value = "id") Long id, @Valid @RequestBody String reading) {
 		return bpService.updateBPMorning(id, reading);
 	}
 
 	@PutMapping("/bpafternoon/{id}")
 	public BPReading updateAfternoonBP(@PathVariable(value = "id") Long id,
-			@PathVariable(value = "id") String reading) {
+			@Valid @RequestBody String reading) {
 		return bpService.updateBPAfternoon(id, reading);
 	}
 
 	@PutMapping("/bpevening/{id}")
-	public BPReading updateEveningBP(@PathVariable(value = "id") Long id, @PathVariable(value = "id") String reading) {
+	public BPReading updateEveningBP(@PathVariable(value = "id") Long id, @Valid @RequestBody String reading) {
 		return bpService.updateBPEvening(id, reading);
 	}
 
