@@ -54,7 +54,6 @@ public class BPReadingService {
 		return bpReadingRepository.save(bpReading);
 	}
 	
-	
 	public BPReading updateBPMorning(Long bpReadingId, String reading) {
 		BPReading bpReading = bpReadingRepository.findById(bpReadingId)
 				.orElseThrow(
@@ -87,6 +86,28 @@ public class BPReadingService {
 		bpReading.setBpevening(reading);
 		
 		BPReading updatedBPReading = bpReadingRepository.save(bpReading);
+		
+		return updatedBPReading;
+	}
+	
+	public BPReading updateBPReading(Long bpReadingId, String type, BPReading bpReading) {
+		BPReading bp = bpReadingRepository.findById(bpReadingId)
+				.orElseThrow(
+						() -> new ResourceNotFoundException("BPReading", "id", bpReadingId));
+
+		if (type.equals("MORNING")) {
+			bp.setBpmorning(bpReading.getBpmorning());
+		}
+		
+		if (type.equals("AFTERNOON")) {
+			bp.setBpafternoon(bpReading.getBpafternoon());
+		}
+		
+		if (type.equals("EVENING")) {
+			bp.setBpevening(bpReading.getBpevening());
+		}
+		
+		BPReading updatedBPReading = bpReadingRepository.save(bp);
 		
 		return updatedBPReading;
 	}

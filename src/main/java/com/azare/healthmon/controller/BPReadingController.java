@@ -72,7 +72,7 @@ public class BPReadingController {
 	public BPReading createBPReading(@Valid @RequestBody BPReading bpReading) {
 		return bpService.createBPReading(bpReading);
 	}
-
+	
 	// Update BP Reading
 	@PutMapping("/bpmorning/{id}")
 	public BPReading updateMorningBP(@PathVariable(value = "id") Long id, @Valid @RequestBody String reading) {
@@ -88,6 +88,12 @@ public class BPReadingController {
 	@PutMapping("/bpevening/{id}")
 	public BPReading updateEveningBP(@PathVariable(value = "id") Long id, @Valid @RequestBody String reading) {
 		return bpService.updateBPEvening(id, reading);
+	}
+
+	// Update BP Reading
+	@PutMapping("/bpreading/{id}/{type}")
+	public BPReading updateBP(@PathVariable(value = "id") Long id, @PathVariable(value = "type") String type, @Valid @RequestBody BPReading bpReading) {
+		return bpService.updateBPReading(id, type, bpReading);
 	}
 
 	// Delete BP Reading
